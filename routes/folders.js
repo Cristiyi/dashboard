@@ -326,7 +326,7 @@ var prodDocUpdateJob = schedule.scheduleJob({ hour: 23, minute: 0 }, function() 
   prodAndPreBlogs(envType, dbType);
 });
 
-var preDocUpdateJob = schedule.scheduleJob({ hour: 16, minute: 51 }, function() {
+var preDocUpdateJob = schedule.scheduleJob({ hour: 23, minute: 15 }, function() {
   var envType = "pre";
   dbType = cloudant.db.use(cloudant.DBNamePreJob);
   prodAndPreBlogs(envType, dbType);

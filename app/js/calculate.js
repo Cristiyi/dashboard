@@ -483,9 +483,10 @@ jQuery(function($) {
     function updateFilter1() {
       var counList = [];
       var languList = [];
+      var typeList = [];
       for (i in blogData.rows) {
         var blog = blogData.rows[i].value;
-        if (!blog.country || !blog.language) {
+        if (!blog.country || !blog.language || !blog.targetAudience) {
           continue;
         }
         if (counList.indexOf(blog.country) === -1) {
@@ -494,22 +495,30 @@ jQuery(function($) {
         if (languList.indexOf(blog.language) === -1) {
           languList.push(blog.language);
         }
+	if (typeList.indexOf(blog.targetAudience) === -1) {
+          typeList.push(blog.targetAudience);
+        }
       }
       counList.sort();
       languList.sort();
-      for (i in counList) {
-        $('#table1Filter1').append('<option value=' + counList[i] + '>' + counList[i] + '</option>');
+      typeList.sort();
+      for (i in languList) {
+        $('#table1Filter1').append('<option value=' + languList[i] + '>' + languList[i] + '</option>');
       }
 
-      for (i in languList) {
-        $('#table1Filter2').append('<option value=' + languList[i] + '>' + languList[i] + '</option>');
+      for (i in counList) {
+        $('#table1Filter2').append('<option value=' + counList[i] + '>' + counList[i] + '</option>');
+      }
+	  for (i in typeList) {
+        $('#table1Filter3').append('<option value=' + typeList[i] + '>' + typeList[i] + '</option>');
       }
     }
   }
 
   function updateTable1() {
-    var filterCountry = $('#table1Filter1').val();
-    var filterLanguage = $('#table1Filter2').val();
+    var  filterLanguage = $('#table1Filter1').val();
+    var filterCountry = $('#table1Filter2').val();
+	var filteType = $('#table1Filter3').val();
     $('#table1 table').DataTable().destroy();
     $('#table1 table tbody').remove();
     var tr = '<tbody>';
@@ -519,6 +528,9 @@ jQuery(function($) {
         continue;
       }
       if (filterLanguage !== 'all' && blog.language !== filterLanguage) {
+        continue;
+      }
+	  if (filteType !== 'all' && blog.targetAudience !== filteType) {
         continue;
       }
       var owner = blog.owner == undefined ? '' : blog.owner;
