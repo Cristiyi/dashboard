@@ -384,6 +384,10 @@ function eachBlog(blogName, envType, dbType) {
   } else {
 	var options = {
 		url: 'https://admin.blogs.' + envType + '.ibm.event.ibm.com/blogs/blogreport/'+blogName+'.json',
+		auth: {
+		user: "blogdashboard",
+		password: "NNZQVhLZ6jouqBZfCiNW7jIGlz3Fki"
+		},
 		method: 'GET',
 		dataType: "json",
 	}  
