@@ -533,7 +533,7 @@ jQuery(function($) {
 	  if (filteType !== 'all' && blog.targetAudience !== filteType) {
         continue;
       }
-      var owner = blog.owner == undefined ? '' : blog.owner;
+      var owner = blog.pageOwner == undefined ? '' : blog.pageOwner;
       var country = blog.country == undefined ? '' : blog.country;
       var language = blog.language == undefined ? '' : blog.language;
       var mu = blog.mu == undefined ? '' : blog.mu;
