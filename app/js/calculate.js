@@ -758,10 +758,13 @@ jQuery(function($) {
 
   function updateTable2() {
     var OpTheme = $('#table2FilterOp1').val();
-    var filterTheme = $('#table2Filter1').val();
     var OpVersion = $('#table2FilterOp2').val();
     var filterVersion = $('#table2Filter2').val();
     var filterActive = $('#table2Filter3').val();
+    var filterTheme = $("#table2Filter1 option:selected").text();
+    if(filterTheme == 'Theme(all)')	
+    	filterTheme ='all';
+		
 
     $('#table2 table').DataTable().destroy();
     $('#table2 table tbody').remove();
