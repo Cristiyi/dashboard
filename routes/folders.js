@@ -320,13 +320,13 @@ function prodAndPreDelete(dbType) {
 };
 
 var day = '';
-var prodDocUpdateJob = schedule.scheduleJob('0 */6 * * *', function() {
+var prodDocUpdateJob = schedule.scheduleJob('15 */6 * * *', function() {
   var envType = "prd";
   dbType = cloudant.db.use(cloudant.DBNamePrdJob);
   prodAndPreBlogs(envType, dbType);
 });
 
-var preDocUpdateJob = schedule.scheduleJob('0 */6 * * *', function() {
+var preDocUpdateJob = schedule.scheduleJob('20 */6 * * *', function() {
   var envType = "pre";
   dbType = cloudant.db.use(cloudant.DBNamePreJob);
   prodAndPreBlogs(envType, dbType);
