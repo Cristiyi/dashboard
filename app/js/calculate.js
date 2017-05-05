@@ -1074,7 +1074,7 @@ jQuery(function($) {
 
       $('#table4 tbody tr td:nth-child(2)').click(function() {
         $(this).addClass('showBlogMenu');
-        var name = $(this).parent().children()[0].innerText;
+        var name = $(this).parent().children()[1].innerText;
         var top = $(this).offset().top;
         var left = $(this).offset().left;
         blogMenu(name, top, left);
@@ -2081,12 +2081,16 @@ jQuery(function($) {
   }
 
   function blogMenu(name, top, left) {
+	  var blogName = name;
+	  if(name.indexOf('_') > -1){
+	  	blogName = name.split("_")[0]+"/"+name.split("_")[1];
+	  }
     if ($('#switchVersion').val() === 'prod') {
-      var url = 'https://admin.blogs.prd.ibm.event.ibm.com/blogs/' + name + '/wp-admin/';
+      var url = 'https://admin.blogs.prd.ibm.event.ibm.com/blogs/' + blogName + '/wp-admin/';
     } else {
-      var url = 'https://admin.blogs.pre.ibm.event.ibm.com/blogs/' + name + '/wp-admin/';
+      var url = 'https://admin.blogs.pre.ibm.event.ibm.com/blogs/' + blogName + '/wp-admin/';
     }
-    $('#moreInfoDiv p:nth-child(1) a').attr('href', 'https://www.ibm.com/blogs/' + name + '/');
+    $('#moreInfoDiv p:nth-child(1) a').attr('href', 'https://www.ibm.com/blogs/' + blogName + '/');
     $('#moreInfoDiv p:nth-child(2) a').attr('href', url);
     $('#moreInfoDiv p:nth-child(3) a').attr('blogname', name);
     $('#moreInfoDiv').css({
