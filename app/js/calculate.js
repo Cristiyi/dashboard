@@ -20,9 +20,15 @@ var currentVersion = 'prod';
 var startStyle = '.6s linear 0s normal none infinite ibm-spinner-kf-spin,5.6s ease-in-out 0s normal none infinite ibm-spinner-kf-colors';
 var stopStyle = '.0s linear 0s normal none infinite ibm-spinner-kf-spin,5.6s ease-in-out 0s normal none infinite ibm-spinner-kf-colors';
 var clipboard = new Clipboard('.copyAddressBtn');
+var clipboard1 = new Clipboard('.copyAddressBtnOwner');
 
 clipboard.on('success', function(e) {
   $('.copyAddressBtn').text('Copied!');
+});
+
+
+clipboard1.on('success', function(e) {
+  $('.copyAddressBtnOwner').text('Copied!');
 });
 
 
@@ -277,8 +283,13 @@ jQuery(function($) {
   $('#emailUsersPopup').hover(function() {}, function() {
     $('#emailUsersPopup').hide();
   })
+  
+  $('#emailOwnerPopup').hover(function() {}, function() {
+    $('#emailOwnerPopup').hide();
+  })
 
   $('.emailUsers button').click(function() {
+	  $('#emailOwnerPopup').hide();
     if (!$(this).hasClass('disabled')) {
       var top = $(this).offset().top;
       var left = $(this).offset().left;
@@ -287,6 +298,19 @@ jQuery(function($) {
         left: left - 10
       });
       $('#emailUsersPopup').show();
+    }
+  })
+  
+    $('.emailOwner button').click(function() {
+		$('#emailUsersPopup').hide();
+    if (!$(this).hasClass('disabled')) {
+      var top = $(this).offset().top;
+      var left = $(this).offset().left;
+      $('#emailOwnerPopup').css({
+        top: top + 18,
+        left: left - 10
+      });
+      $('#emailOwnerPopup').show();
     }
   })
 
@@ -600,8 +624,10 @@ jQuery(function($) {
 
       if (table.rows({ selected: true }).count() == 0) {
         $('#table1 p.emailUsers button').addClass('disabled');
+		$('#table1 p.emailOwner button').addClass('disabled');
       } else {
         $('#table1 p.emailUsers button').removeClass('disabled');
+		$('#table1 p.emailOwner button').removeClass('disabled');
       }
 
       for (var i in table.rows({ selected: true }).data().toArray()) {
@@ -672,12 +698,25 @@ jQuery(function($) {
       console.log('addressStr', addressStr)
       window.open('mailto:' + addressStr);
     });
+	
+	$('#sendEmailBtnOwner').click(function() {
+      window.open('mailto:' + addressStr);
+    });
 
     $('#table1 .emailUsers button').click(function() {
       if (!$(this).hasClass('disabled')) {
         $('.copyAddressBtn').text('Copy addresses');
         if (addressStr === '') {
           calEmails(blogNames);
+        }
+      }
+    })
+	
+	$('#table1 .emailOwner button').click(function() {
+      if (!$(this).hasClass('disabled')) {
+        $('.copyAddressBtnOwner').text('Copy addresses');
+        if (addressStr === '') {
+          calEmailsOwner(blogNames);
         }
       }
     })
@@ -2146,6 +2185,24 @@ jQuery(function($) {
     $('#speRolesPopupGroup').hide();
   }
 
+  function calEmailsOwner(blogNames) {
+	addressStr = '';
+    $('.copyAddressBtnOwner').text('Copy addresses');
+	var owner = [];
+	for (i in blogData.rows){
+		var blog = blogData.rows[i];
+		if (blogNames.indexOf(blog.id) == -1) {
+          continue;
+        }	
+		var pageOwner = blog.value.pageOwner;
+		if (owner.indexOf(pageOwner) !== -1 && owner.length != 0) {
+            continue;
+          }
+          owner.push(pageOwner);
+	}
+    addressStr = owner.join(', ');
+    $('#copyEmailBtnOwner').attr('data-clipboard-text', addressStr);
+  }
   function calEmails(blogNames) {
     addressStr = '';
     $('.copyAddressBtn').text('Copy addresses');

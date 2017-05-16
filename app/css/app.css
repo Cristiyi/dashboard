@@ -441,6 +441,17 @@ table img.wrong {
   color: #777677;
 }
 
+#table p.emailOwner {
+  float: left;
+   margin-left: 20px;
+}
+
+#table p.emailOwner button.disabled {
+  background-color: #ececec;
+  border: 2px solid #ececec;
+  color: #777677;
+}
+
 #table1 thead tr th:nth-child(1),
 #table2 thead tr th:nth-child(1),
 #table4 thead tr th:nth-child(1),
@@ -816,6 +827,31 @@ div.tableDivChild.showThisTableFilter div.tableDivFilter div.filterSwitch a:nth-
   width: 200px;
 }
 
+
+#emailOwnerPopup {
+  position: absolute;
+  padding-top: 30px;
+  padding-left: 10px;
+  z-index: 3;
+  display: none;
+}
+
+#emailOwnerPopup>div {
+  background-color: white;
+  border: 1px black solid;
+  width: 200px;
+  padding: 10px;
+}
+
+#emailOwnerPopup>div>p:nth-child(1) {
+  padding-bottom: 2px;
+}
+
+#emailOwnerPopup>div>p:nth-child(2) {
+  margin-top: 10px;
+}
+
+
 #emailUsersPopup {
   position: absolute;
   padding-top: 30px;
@@ -849,8 +885,16 @@ div.tableDivChild.showThisTableFilter div.tableDivFilter div.filterSwitch a:nth-
   pointer-events: none;
   color: #777677;
 }
+#copyEmailBtnOwner.disabled {
+  pointer-events: none;
+  color: #777677;
+}
 
 .copyAddressBtn[disabled=true] {
+  pointer-events: none;
+  color: #777677;
+}
+.copyAddressBtnOwner[disabled=true] {
   pointer-events: none;
   color: #777677;
 }
